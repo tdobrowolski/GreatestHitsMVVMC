@@ -1,0 +1,6 @@
+framework module Pods_TheGreatestThird {
+  umbrella header "Pods-TheGreatestThird-umbrella.h"
+
+  export *
+  module * { export * }
+}

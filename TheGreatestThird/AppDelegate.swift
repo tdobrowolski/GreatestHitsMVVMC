@@ -8,20 +8,24 @@
 
 import UIKit
 import CoreData
+import Swinject
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var coordinator: AppCoordinator?
+    var assembler: Assembler?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        assembler = Assembler([Elements()])
 
         window = UIWindow()
         let navigationController = UINavigationController()
         window?.rootViewController = navigationController
-        let coordinator = AppCoordinator(navigationController: navigationController)
-        coordinator.start()
+        coordinator = AppCoordinator(navigationController: navigationController)
+        coordinator!.start()
         window?.makeKeyAndVisible()
 
         return true

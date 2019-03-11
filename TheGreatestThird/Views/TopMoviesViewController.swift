@@ -39,7 +39,7 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let viewModel = viewModel {
-            return viewModel.numberOfItems
+            return viewModel.getItemsCount()
         }
         
         return 0
@@ -48,9 +48,8 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
-        let currentItem = viewModel?.itemAtIndex(indexPath.row)
-        cell.titleTextView.text = currentItem?.title
-        cell.userScoreLabel.text = "User score: \(currentItem?.score ?? 0) / 10"
+        cell.titleTextView.text = viewModel?.getTitle(row: indexPath.row)
+        cell.userScoreLabel.text = "User score: \(viewModel?.getScore(row: indexPath.row) ?? 0) / 10"
         return cell
     }
     
@@ -59,13 +58,6 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.useItemAtIndex(indexPath.row)
-    }
-}
-
-extension TopMoviesViewController: TopMoviesViewModelViewDelegate {
-    
-    func itemsDidChange(viewModel: TopMoviesViewModel) {
-        refreshDisplay()
+        //viewModel?.useItemAtIndex(indexPath.row)
     }
 }

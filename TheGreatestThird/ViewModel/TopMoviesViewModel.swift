@@ -8,71 +8,36 @@
 
 import Foundation
 
-protocol TopMoviesViewModelViewDelegate: class {
-    
-    func itemsDidChange(viewModel: TopMoviesViewModel)
-}
-
-protocol TopMoviesViewModelCoordinatorDelegate: class {
-    
-    func topMoviesViewModelDidSelectData(_ viewModel: TopMoviesViewModel, data: DataItem)
-}
-
 protocol TopMoviesViewModelType {
     
-    var model: MoviesModel? { get set }
-    var viewDelegate: TopMoviesViewModelViewDelegate? { get set }
-    var coordinatorDelegate: TopMoviesViewModelCoordinatorDelegate? { get set }
-    
-    var numberOfItems: Int { get }
-    func itemAtIndex(_ index: Int) -> DataItem?
-    func useItemAtIndex(_ index: Int)
+    func addStartItems()
 }
-
-// Class
 
 final class TopMoviesViewModel: TopMoviesViewModelType {
     
-    // wskazują na nila 😔
-    weak var viewDelegate: TopMoviesViewModelViewDelegate?
-    weak var coordinatorDelegate: TopMoviesViewModelCoordinatorDelegate?
-    
-    private var items: [DataItem]? {
-        didSet {
-            print("itemki sie zmieniły")
-            viewDelegate?.itemsDidChange(viewModel: self)
-        }
+    var items: [DataItem] = []
+ 
+    init() {
+        addStartItems()
     }
     
-    var model: MoviesModel? {
-        didSet {
-            items = nil;
-            model?.items({ (items) in
-                self.items = items
-            })
-        }
+    func addStartItems() {
+        print("Tworze nowe obiekty")
+        items.append(DataItem(id: 1, title: "Tytuł filmu nr 1", score: 8.9, posterUrl: "url"))
+        items.append(DataItem(id: 2, title: "Tytuł filmu nr 2", score: 7.9, posterUrl: "url"))
+        items.append(DataItem(id: 3, title: "Tytuł filmu nr 3", score: 6.3, posterUrl: "url"))
+        items.append(DataItem(id: 4, title: "Tytuł filmu nr 4", score: 8.1, posterUrl: "url"))
     }
     
-    var numberOfItems: Int {
-        if let items = items {
-            return items.count
-        }
-        return 0
+    func getTitle(row: Int) -> String {
+        return items[row].title
     }
     
-    func itemAtIndex(_ index: Int) -> DataItem? {
-        if let items = items, items.count > index {
-            return items[index]
-        }
-        return nil
+    func getScore(row: Int) -> Double {
+        return items[row].score
     }
     
-    func useItemAtIndex(_ index: Int) {
-
-        if let items = items, let coordinatorDelegate = coordinatorDelegate, index < items.count {
-            coordinatorDelegate.topMoviesViewModelDidSelectData(self, data: items[index])
-            print("useItemAtIndex")
-        }
+    func getItemsCount() -> Int {
+        return items.count
     }
-    
 }

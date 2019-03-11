@@ -12,21 +12,8 @@ final class TopMoviesCoordinator: Coordinator {
     
     func start() {
         
-        let viewController = TopMoviesViewController()
+        let viewController = assembler.resolver.resolve(TopMoviesViewController.self)
         
-        let viewModel = TopMoviesViewModel()
-        viewModel.model = MoviesModel()
-        viewModel.coordinatorDelegate = self
-        viewController.viewModel = viewModel
-        
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-extension TopMoviesCoordinator: TopMoviesViewModelCoordinatorDelegate {
-    
-    func topMoviesViewModelDidSelectData(_ viewModel: TopMoviesViewModel, data: DataItem) {
-        print("Wybrano: \(data.title)")
-        // Tutaj zaimplementuj przejście do nowego widoku
+        navigationController?.pushViewController(viewController!, animated: true)
     }
 }
