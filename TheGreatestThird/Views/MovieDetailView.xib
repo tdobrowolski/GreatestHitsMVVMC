@@ -12,13 +12,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieDetailViewController" customModule="TheGreatestThird" customModuleProvider="target">
             <connections>
-                <outlet property="dateLabel" destination="lag-ZD-JtG" id="eHP-ce-24W"/>
                 <outlet property="genresLabel" destination="53t-Ah-v52" id="jZA-EL-4PE"/>
                 <outlet property="overviewTextView" destination="Lm5-eb-E5i" id="5mq-9C-dqJ"/>
                 <outlet property="posterImageView" destination="sqo-mR-zud" id="rwJ-u1-Trb"/>
                 <outlet property="releaseDateLabel" destination="lag-ZD-JtG" id="Zj7-AI-Qlv"/>
                 <outlet property="revenueLabel" destination="Lce-b1-HTJ" id="tZT-Kb-EPg"/>
-                <outlet property="shadowView" destination="Crr-Y0-Gwa" id="5bY-eU-pIN"/>
+                <outlet property="shadowView" destination="Crr-Y0-Gwa" id="ksP-wq-LQ0"/>
                 <outlet property="titleTextView" destination="N3o-Zk-VDd" id="lEm-bL-bfG"/>
                 <outlet property="userScoreLabel" destination="atn-Ct-nOw" id="2rJ-BP-uUc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -139,7 +138,7 @@
                                 <constraint firstAttribute="bottom" secondItem="Lce-b1-HTJ" secondAttribute="bottom" constant="16" id="dko-rJ-x1z"/>
                                 <constraint firstAttribute="trailing" secondItem="jin-i2-aTQ" secondAttribute="trailing" constant="16" id="e1b-Lz-OaF"/>
                                 <constraint firstItem="TNf-da-Ku4" firstAttribute="leading" secondItem="3Od-cd-Ko1" secondAttribute="leading" constant="16" id="fbA-ZN-10Y"/>
-                                <constraint firstItem="atn-Ct-nOw" firstAttribute="top" secondItem="N3o-Zk-VDd" secondAttribute="bottom" id="hWg-DA-s96"/>
+                                <constraint firstItem="atn-Ct-nOw" firstAttribute="top" secondItem="N3o-Zk-VDd" secondAttribute="bottom" constant="10" id="hWg-DA-s96"/>
                                 <constraint firstItem="Crr-Y0-Gwa" firstAttribute="centerX" secondItem="3Od-cd-Ko1" secondAttribute="centerX" id="jPy-E8-nUx"/>
                                 <constraint firstItem="53t-Ah-v52" firstAttribute="top" secondItem="S2Z-jo-mXG" secondAttribute="bottom" constant="6" id="mp2-vd-Jse"/>
                                 <constraint firstItem="Crr-Y0-Gwa" firstAttribute="top" secondItem="3Od-cd-Ko1" secondAttribute="top" constant="8" id="njn-S9-fa0"/>

@@ -19,15 +19,24 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Top rated movies"
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red:0.02, green:0.75, blue:0.43, alpha:1.0)]
+        
         let nib = UINib(nibName: "MovieTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "MovieCell")
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.title = "Top rated movies"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
         refreshDisplay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
     
     func refreshDisplay() {
@@ -58,6 +67,8 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //viewModel?.useItemAtIndex(indexPath.row)
+        viewModel?.useItemAtIndex(index: indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
 }

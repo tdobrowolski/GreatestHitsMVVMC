@@ -10,23 +10,51 @@ import Foundation
 
 protocol TopMoviesViewModelType {
     
-    func addStartItems()
+}
+
+protocol TopMoviesViewModelCoordinatorDelegate: class {
+    func startDetailCoordinator(model: DataItem)
 }
 
 final class TopMoviesViewModel: TopMoviesViewModelType {
     
     var items: [DataItem] = []
+    weak var coordinatorDelegate: TopMoviesViewModelCoordinatorDelegate?
+    let networkKeys = NetworkKeys()
+    var nextInt = 1
+    var totalPages = 0
  
     init() {
-        addStartItems()
+        fetchMovies()
     }
     
-    func addStartItems() {
-        print("Tworze nowe obiekty")
-        items.append(DataItem(id: 1, title: "Tytuł filmu nr 1", score: 8.9, posterUrl: "url"))
-        items.append(DataItem(id: 2, title: "Tytuł filmu nr 2", score: 7.9, posterUrl: "url"))
-        items.append(DataItem(id: 3, title: "Tytuł filmu nr 3", score: 6.3, posterUrl: "url"))
-        items.append(DataItem(id: 4, title: "Tytuł filmu nr 4", score: 8.1, posterUrl: "url"))
+    // Networking
+
+    func fetchMovies() {
+        
+        let url = URL(string: networkKeys.baseUrl + "movie/top_rated" + networkKeys.apiKey + "&page=" + String(nextInt))!
+        print("url: \(url)")
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(MoviesResult.self, from: data!)
+                    
+                    self.items += decodedData.results
+                    self.totalPages = decodedData.totalPages
+                    self.nextInt += 1
+                } catch let decoderError {
+                    print("Decoder error: \(decoderError)")
+                }
+            } else {
+                print("Request error: \(String(describing: error))")
+            }
+            
+        }
+        
+        task.resume()
     }
     
     func getTitle(row: Int) -> String {
@@ -39,5 +67,11 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
     
     func getItemsCount() -> Int {
         return items.count
+    }
+    
+    func useItemAtIndex(index: Int) {
+        let item = items[index]
+        print("useItemAtIndex: \(item) - \(index)")
+        self.coordinatorDelegate?.startDetailCoordinator(model: item)
     }
 }

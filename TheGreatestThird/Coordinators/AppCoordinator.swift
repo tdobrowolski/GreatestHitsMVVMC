@@ -11,10 +11,13 @@ import UIKit
 
 final class AppCoordinator: Coordinator {
     
+    var coordinator: TopMoviesCoordinator?
+    
     func start() {
         
-        let coordinator = TopMoviesCoordinator(navigationController: navigationController!)
-        coordinator.start()
-        childCoordinators.append(coordinator)
+        //coordinator = assembler.resolver.resolve(TopMoviesCoordinator.self, argument: navigationController!)!
+        coordinator = TopMoviesCoordinator(navigationController: navigationController!)
+        coordinator!.start()
+        childCoordinators.append(coordinator!)
     }
 }

@@ -21,6 +21,9 @@
 		B829A0C4221C3B4B00534471 /* TopMoviesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A0C3221C3B4B00534471 /* TopMoviesCoordinator.swift */; };
 		B829A0C7221C3D8400534471 /* TopMoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A0C6221C3D8400534471 /* TopMoviesViewModel.swift */; };
 		B829A0CC221C472F00534471 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A0CB221C472F00534471 /* DataItem.swift */; };
+		B88BD70522379E490099202E /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD70422379E490099202E /* MovieDetailViewModel.swift */; };
+		B88BD7072237AC9F0099202E /* MovieDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD7062237AC9F0099202E /* MovieDetailCoordinator.swift */; };
+		B88BD7092237C19C0099202E /* NetworkKeysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD7082237C19B0099202E /* NetworkKeysModel.swift */; };
 		B8BC93892236AF6E00C34579 /* Assembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BC93882236AF6E00C34579 /* Assembler.swift */; };
 		B8BC938B2236C52C00C34579 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BC938A2236C52B00C34579 /* MovieDetailView.xib */; };
 		B8BC938D2236C55900C34579 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BC938C2236C55900C34579 /* MovieDetailViewController.swift */; };
@@ -47,6 +50,9 @@
 		B829A0C3221C3B4B00534471 /* TopMoviesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMoviesCoordinator.swift; sourceTree = "<group>"; };
 		B829A0C6221C3D8400534471 /* TopMoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMoviesViewModel.swift; sourceTree = "<group>"; };
 		B829A0CB221C472F00534471 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
+		B88BD70422379E490099202E /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		B88BD7062237AC9F0099202E /* MovieDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailCoordinator.swift; sourceTree = "<group>"; };
+		B88BD7082237C19B0099202E /* NetworkKeysModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkKeysModel.swift; sourceTree = "<group>"; };
 		B8BC93882236AF6E00C34579 /* Assembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembler.swift; sourceTree = "<group>"; };
 		B8BC938A2236C52B00C34579 /* MovieDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieDetailView.xib; sourceTree = "<group>"; };
 		B8BC938C2236C55900C34579 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +145,7 @@
 				B829A0BB221C223900534471 /* Coordinator.swift */,
 				B829A0BD221C231D00534471 /* AppCoordinator.swift */,
 				B829A0C3221C3B4B00534471 /* TopMoviesCoordinator.swift */,
+				B88BD7062237AC9F0099202E /* MovieDetailCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -147,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				B829A0C6221C3D8400534471 /* TopMoviesViewModel.swift */,
+				B88BD70422379E490099202E /* MovieDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 		B829A0C8221C3E8700534471 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B88BD7082237C19B0099202E /* NetworkKeysModel.swift */,
 				B829A0CB221C472F00534471 /* DataItem.swift */,
 			);
 			path = Models;
@@ -279,6 +288,9 @@
 				B829A0A5221C1EC200534471 /* TheGreatestThird.xcdatamodeld in Sources */,
 				B829A0C1221C2CE100534471 /* MovieTableViewCell.swift in Sources */,
 				B8BC93892236AF6E00C34579 /* Assembler.swift in Sources */,
+				B88BD70522379E490099202E /* MovieDetailViewModel.swift in Sources */,
+				B88BD7072237AC9F0099202E /* MovieDetailCoordinator.swift in Sources */,
+				B88BD7092237C19C0099202E /* NetworkKeysModel.swift in Sources */,
 				B829A09D221C1EC200534471 /* AppDelegate.swift in Sources */,
 				B8BC938F2236C67900C34579 /* UITextViewFixed.swift in Sources */,
 				B829A0C4221C3B4B00534471 /* TopMoviesCoordinator.swift in Sources */,

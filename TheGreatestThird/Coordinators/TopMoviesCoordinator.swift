@@ -10,10 +10,29 @@ import Foundation
 
 final class TopMoviesCoordinator: Coordinator {
     
+    var viewController: TopMoviesViewController?
+    
     func start() {
         
-        let viewController = assembler.resolver.resolve(TopMoviesViewController.self)
+        //viewController = assembler.resolver.resolve(TopMoviesViewController.self)
+        viewController = TopMoviesViewController()
+        let vm = TopMoviesViewModel()
+        vm.coordinatorDelegate = self
+        viewController?.viewModel = vm
         
         navigationController?.pushViewController(viewController!, animated: true)
+    }
+    
+    deinit {
+        print("TopMoviesCoordinator deallocated")
+    }
+}
+
+extension TopMoviesCoordinator: TopMoviesViewModelCoordinatorDelegate {
+    
+    func startDetailCoordinator(model: DataItem) {
+        let coordinator = MovieDetailCoordinator(navigationController: navigationController!)
+        coordinator.model = model
+        coordinator.start()
     }
 }

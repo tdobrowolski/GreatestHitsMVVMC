@@ -8,20 +8,17 @@
 
 import Foundation
 
-protocol DataItemType {
-    
-    var id: Int { get }
-    var title: String { get }
-    var score: Double { get }
-    var posterUrl: String { get }
-}
-
-struct DataItem: DataItemType {
+struct DataItem: Decodable {
     
     let id: Int
     let title: String
     let score: Double
     let posterUrl: String
+    
+    var overview: String? = nil
+    var genres: [Genre]? = nil
+    var releaseDate: String? = nil
+    var revenue: Int? = nil
     
     init(id: Int, title: String, score: Double, posterUrl: String) {
         
@@ -29,6 +26,39 @@ struct DataItem: DataItemType {
         self.title = title
         self.score = score
         self.posterUrl = posterUrl
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case title = "title"
+        case score = "vote_average"
+        case posterUrl = "poster_path"
+        case overview = "overview"
+        case genres = "genres"
+        case releaseDate = "release_date"
+        case revenue = "revenue"
+    }
+    
+}
+
+struct Genre: Decodable {
+    let id: Int
+    let name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+    }
+}
+
+struct MoviesResult: Decodable {
+    
+    var page, totalPages: Int
+    var results: [DataItem]
+    
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPages = "total_pages"
     }
     
 }
