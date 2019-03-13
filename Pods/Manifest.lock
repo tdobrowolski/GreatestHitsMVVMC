@@ -1,16 +1,20 @@
 PODS:
+  - Kingfisher (5.0.1)
   - Swinject (2.5.0)
 
 DEPENDENCIES:
+  - Kingfisher (~> 5.0)
   - Swinject
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Kingfisher
     - Swinject
 
 SPEC CHECKSUMS:
+  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: d7e783e27c23dc0c4b03b0457e13aa36a27413e4
+PODFILE CHECKSUM: 2ef1c8f102b3da4bb6856fda993f1156104d9c65
 
 COCOAPODS: 1.5.3

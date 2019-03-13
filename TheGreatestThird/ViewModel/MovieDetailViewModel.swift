@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MovieDetailViewModelType {
     
@@ -32,7 +33,6 @@ final class MovieDetailViewModel: MovieDetailViewModelType {
         guard let url = URL(string: networkKeys.baseUrl + "movie/" + String(model.id) + networkKeys.apiKey) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // check data
             if error == nil {
                 do {
                     if let data = data {
@@ -53,6 +53,13 @@ final class MovieDetailViewModel: MovieDetailViewModelType {
         }
         
         task.resume()
+    }
+    
+    func getImage(imageView: UIImageView) -> UIImageView {
+        
+        let imageUrl = networkKeys.baseImageUrl + posterWidths.big.rawValue + model.posterUrl
+        
+        return imageView.setImage(from: imageUrl)
     }
     
     func getTitle() -> String {

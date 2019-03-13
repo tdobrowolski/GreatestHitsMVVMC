@@ -31,7 +31,9 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         
-        refreshDisplay()
+        viewModel?.fetchMovies {
+            self.refreshDisplay()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +42,9 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func refreshDisplay() {
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     // MARK: - Table View
@@ -59,6 +63,7 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
         cell.titleTextView.text = viewModel?.getTitle(row: indexPath.row)
         cell.userScoreLabel.text = "User score: \(viewModel?.getScore(row: indexPath.row) ?? 0) / 10"
+        cell.posterImageView = viewModel?.getImage(row: indexPath.row, imageView: cell.posterImageView)
         return cell
     }
     
@@ -69,6 +74,17 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel?.useItemAtIndex(index: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height * 2 && contentHeight != 0 {
+            viewModel?.fetchMovies {
+                self.refreshDisplay()
+            }
+        }
     }
     
 }

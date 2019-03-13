@@ -7,5 +7,6 @@ target 'TheGreatestThird' do
 
   # Pods for TheGreatestThird
   pod 'Swinject'
+  pod 'Kingfisher', '~> 5.0'
 
 end

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 protocol TopMoviesViewModelType {
     
@@ -22,29 +23,31 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
     weak var coordinatorDelegate: TopMoviesViewModelCoordinatorDelegate?
     let networkKeys = NetworkKeys()
     var nextInt = 1
-    var totalPages = 0
- 
-    init() {
-        fetchMovies()
-    }
+    var totalPages = 1
+    var isLoading: Bool = false
     
     // Networking
 
-    func fetchMovies() {
+    func fetchMovies(closure: @escaping () -> Void) {
+        
+        if isLoading {
+            return
+        }
         
         let url = URL(string: networkKeys.baseUrl + "movie/top_rated" + networkKeys.apiKey + "&page=" + String(nextInt))!
         print("url: \(url)")
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             
+            self.isLoading = true
+            
             if error == nil {
                 do {
                     let decoder = JSONDecoder()
                     let decodedData = try decoder.decode(MoviesResult.self, from: data!)
                     
-                    self.items += decodedData.results
-                    self.totalPages = decodedData.totalPages
-                    self.nextInt += 1
+                    self.parseDecodedData(decodedData: decodedData)
+                    closure()
                 } catch let decoderError {
                     print("Decoder error: \(decoderError)")
                 }
@@ -52,9 +55,26 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
                 print("Request error: \(String(describing: error))")
             }
             
+            self.isLoading = false
         }
         
-        task.resume()
+        if !isLoading, nextInt <= totalPages {
+            task.resume()
+        }
+    }
+    
+    func getImage(row: Int, imageView: UIImageView) -> UIImageView {
+        
+        let imageUrl = networkKeys.baseImageUrl + posterWidths.medium.rawValue + items[row].posterUrl
+        
+        return imageView.setImage(from: imageUrl)
+    }
+    
+    func parseDecodedData(decodedData: MoviesResult) {
+        
+        self.items += decodedData.results
+        self.totalPages = decodedData.totalPages
+        self.nextInt += 1
     }
     
     func getTitle(row: Int) -> String {
@@ -71,7 +91,24 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
     
     func useItemAtIndex(index: Int) {
         let item = items[index]
-        print("useItemAtIndex: \(item) - \(index)")
         self.coordinatorDelegate?.startDetailCoordinator(model: item)
     }
+}
+
+extension UIImageView {
+    
+    func setImage(from url: String) -> UIImageView {
+        
+        let imageUrl = URL(string: url)
+        let placeholder = UIImage(named: "placeholder")
+        
+        if let imageUrl = imageUrl {
+            self.kf.setImage(with: imageUrl, placeholder: placeholder, options: [.transition(.fade(0.2))])
+        } else {
+            self.image = placeholder
+        }
+        
+        return self
+    }
+    
 }

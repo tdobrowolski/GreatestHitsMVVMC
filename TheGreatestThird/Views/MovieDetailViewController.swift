@@ -52,6 +52,7 @@ extension MovieDetailViewController: MovieDetailViewModelViewDelegate {
     func setupUI() {
         
         if let viewModel = viewModel {
+            posterImageView = viewModel.getImage(imageView: posterImageView)
             titleTextView.text = viewModel.getTitle()
             userScoreLabel.text = viewModel.getScore()
             overviewTextView.text = viewModel.getOverview()

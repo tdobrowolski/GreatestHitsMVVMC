@@ -16,9 +16,6 @@ class MovieTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        //titleTextView.translatesAutoresizingMaskIntoConstraints = true
-        //titleTextView.sizeToFit()
-        //titleTextView.isScrollEnabled = false
         posterImageView.clipsToBounds = true
         posterImageView.layer.cornerRadius = 4
     }

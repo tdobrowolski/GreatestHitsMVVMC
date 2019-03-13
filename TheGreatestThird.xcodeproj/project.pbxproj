@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B80E55D62239581700798626 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80E55D52239581700798626 /* Networking.swift */; };
 		B829A09D221C1EC200534471 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829A09C221C1EC200534471 /* AppDelegate.swift */; };
 		B829A0A2221C1EC200534471 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B829A0A0221C1EC200534471 /* Main.storyboard */; };
 		B829A0A5221C1EC200534471 /* TheGreatestThird.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B829A0A3221C1EC200534471 /* TheGreatestThird.xcdatamodeld */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		6FAA391424048CF87ADED4F0 /* Pods-TheGreatestThird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheGreatestThird.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheGreatestThird/Pods-TheGreatestThird.release.xcconfig"; sourceTree = "<group>"; };
 		B7CBF9884CDB19A2D119D366 /* Pods_TheGreatestThird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheGreatestThird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B80E55D52239581700798626 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		B829A099221C1EC100534471 /* TheGreatestThird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGreatestThird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B829A09C221C1EC200534471 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B829A0A1221C1EC200534471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				B829A0B1221C1ED500534471 /* Views */,
 				B829A0C8221C3E8700534471 /* Models */,
 				B8BC938E2236C67900C34579 /* UITextViewFixed.swift */,
+				B80E55D52239581700798626 /* Networking.swift */,
 				B829A0A6221C1EC300534471 /* Assets.xcassets */,
 				B829A0A0221C1EC200534471 /* Main.storyboard */,
 				B829A0A8221C1EC300534471 /* LaunchScreen.storyboard */,
@@ -247,10 +250,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TheGreatestThird/Pods-TheGreatestThird-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +291,7 @@
 				B829A0CC221C472F00534471 /* DataItem.swift in Sources */,
 				B829A0BE221C231D00534471 /* AppCoordinator.swift in Sources */,
 				B829A0A5221C1EC200534471 /* TheGreatestThird.xcdatamodeld in Sources */,
+				B80E55D62239581700798626 /* Networking.swift in Sources */,
 				B829A0C1221C2CE100534471 /* MovieTableViewCell.swift in Sources */,
 				B8BC93892236AF6E00C34579 /* Assembler.swift in Sources */,
 				B88BD70522379E490099202E /* MovieDetailViewModel.swift in Sources */,
