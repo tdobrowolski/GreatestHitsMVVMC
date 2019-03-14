@@ -31,20 +31,18 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         
+        /*
         viewModel?.fetchMovies {
             self.refreshDisplay()
         }
+        */
+        
+        viewModel?.fetchMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.tintColor = UIColor.black
-    }
-    
-    func refreshDisplay() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
     }
     
     // MARK: - Table View
@@ -81,10 +79,16 @@ class TopMoviesViewController: UIViewController, UITableViewDelegate, UITableVie
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.height * 2 && contentHeight != 0 {
-            viewModel?.fetchMovies {
-                self.refreshDisplay()
-            }
+            viewModel?.fetchMovies()
         }
     }
+}
+
+extension TopMoviesViewController: TopMoviesViewModelViewControllerDelegate {
     
+    func refreshDisplay() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
 }

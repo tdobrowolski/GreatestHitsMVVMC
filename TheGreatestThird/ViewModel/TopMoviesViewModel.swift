@@ -17,11 +17,17 @@ protocol TopMoviesViewModelCoordinatorDelegate: class {
     func startDetailCoordinator(model: DataItem)
 }
 
+protocol TopMoviesViewModelViewControllerDelegate: class {
+    func refreshDisplay()
+}
+
 final class TopMoviesViewModel: TopMoviesViewModelType {
     
     var items: [DataItem] = []
     weak var coordinatorDelegate: TopMoviesViewModelCoordinatorDelegate?
+    weak var viewControllerDelegate: TopMoviesViewModelViewControllerDelegate?
     let networkKeys = NetworkKeys()
+    let networking = Networking()
     var nextInt = 1
     var totalPages = 1
     var isLoading: Bool = false
@@ -63,6 +69,34 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
         }
     }
     
+    func fetchMovies() {
+        
+        if isLoading { return }
+        self.isLoading = true
+        
+        guard let url = URL(string: networkKeys.baseUrl + "movie/top_rated" + networkKeys.apiKey + "&page=" + String(nextInt)) else {
+            print("URL error: Can't create URL")
+            return
+        }
+        
+        networking.makeGetRequest(url: url) { data in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(MoviesResult.self, from: data)
+                    self.parseDecodedData(decodedData: decodedData)
+                } catch let decodedError {
+                    print("An error occurred during encoding: \(decodedError.localizedDescription)")
+                }
+            } else {
+                print("No data received")
+            }
+            
+            self.isLoading = false
+        }
+    }
+    
     func getImage(row: Int, imageView: UIImageView) -> UIImageView {
         
         let imageUrl = networkKeys.baseImageUrl + posterWidths.medium.rawValue + items[row].posterUrl
@@ -75,6 +109,7 @@ final class TopMoviesViewModel: TopMoviesViewModelType {
         self.items += decodedData.results
         self.totalPages = decodedData.totalPages
         self.nextInt += 1
+        self.viewControllerDelegate?.refreshDisplay()
     }
     
     func getTitle(row: Int) -> String {

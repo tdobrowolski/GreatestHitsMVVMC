@@ -21,6 +21,7 @@ final class MovieDetailViewModel: MovieDetailViewModelType {
     
     var model: DataItem
     let networkKeys = NetworkKeys()
+    let networking = Networking()
     private weak var delegate: MovieDetailViewModelViewDelegate?
     
     init(model: DataItem, delegate: MovieDetailViewModelViewDelegate) {
@@ -30,29 +31,26 @@ final class MovieDetailViewModel: MovieDetailViewModelType {
     
     func fetchMovieDetail() {
         
-        guard let url = URL(string: networkKeys.baseUrl + "movie/" + String(model.id) + networkKeys.apiKey) else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error == nil {
-                do {
-                    if let data = data {
-                        let decoder = JSONDecoder()
-                        let decodedData = try decoder.decode(DataItem.self, from: data)
-                        self.model = decodedData
-                        DispatchQueue.main.async { [weak self] in // poczytaj dispatchqueue grandcentraldispatch
-                            self?.delegate?.setupUI()
-                        }
-                    }
-                } catch let decoderError {
-                    print("Decoder error: \(decoderError)")
-                }
-            } else {
-                print("Request error: \(String(describing: error))")
-            }
-            
+        guard let url = URL(string: networkKeys.baseUrl + "movie/" + String(model.id) + networkKeys.apiKey) else {
+            print("URL error: Can't create URL")
+            return
         }
         
-        task.resume()
+        networking.makeGetRequest(url: url) { data in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(DataItem.self, from: data)
+                    self.model = decodedData
+                    self.delegate?.setupUI()
+                } catch let decodedError {
+                    print("An error occurred during encoding: \(decodedError.localizedDescription)")
+                }
+            } else {
+                print("No data received")
+            }
+        }
     }
     
     func getImage(imageView: UIImageView) -> UIImageView {

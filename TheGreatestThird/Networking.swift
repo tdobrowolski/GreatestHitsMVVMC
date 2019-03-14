@@ -8,26 +8,26 @@
 
 import Foundation
 
-protocol NetworkType {
-    func makeGetRequest(url: URL) -> Data
-}
-
-struct Network: NetworkType {
+struct Networking {
     
-    func makeGetRequest(url: URL) -> Data {
+    func makeGetRequest(url: URL, completion: @escaping (_ data: Data?) -> ()) {
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             if let error = error {
-                print("An error occured: \(error)")
-                return
+                print("An error occured: \(error.localizedDescription)")
+                completion(nil)
             }
             
-            //if let data = data
+            if let response = response as? HTTPURLResponse {
+                print("Response status code: \(response.statusCode)")
+            }
             
+            if let data = data {
+                completion(data)
+            }
         }
         
         task.resume()
-        return Data() //xd
     }
 }

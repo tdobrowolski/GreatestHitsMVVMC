@@ -50,15 +50,16 @@ class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController: MovieDetailViewModelViewDelegate {
 
     func setupUI() {
-        
-        if let viewModel = viewModel {
-            posterImageView = viewModel.getImage(imageView: posterImageView)
-            titleTextView.text = viewModel.getTitle()
-            userScoreLabel.text = viewModel.getScore()
-            overviewTextView.text = viewModel.getOverview()
-            genresLabel.text = viewModel.getGenres()
-            releaseDateLabel.text = viewModel.getReleaseDate()
-            revenueLabel.text = viewModel.getRevenue()
+        DispatchQueue.main.async {
+            if let viewModel = self.viewModel {
+                self.posterImageView = viewModel.getImage(imageView: self.posterImageView)
+                self.titleTextView.text = viewModel.getTitle()
+                self.userScoreLabel.text = viewModel.getScore()
+                self.overviewTextView.text = viewModel.getOverview()
+                self.genresLabel.text = viewModel.getGenres()
+                self.releaseDateLabel.text = viewModel.getReleaseDate()
+                self.revenueLabel.text = viewModel.getRevenue()
+            }
         }
     }
 }

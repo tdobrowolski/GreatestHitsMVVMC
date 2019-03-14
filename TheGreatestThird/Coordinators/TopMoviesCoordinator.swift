@@ -18,6 +18,7 @@ final class TopMoviesCoordinator: Coordinator {
         viewController = TopMoviesViewController()
         let vm = TopMoviesViewModel()
         vm.coordinatorDelegate = self
+        vm.viewControllerDelegate = viewController
         viewController?.viewModel = vm
         
         navigationController?.pushViewController(viewController!, animated: true)
